@@ -14,3 +14,31 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+form .inputGroup {
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+}
+
+form input {
+  height: 40px;
+}
+
+form button {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  border: none;
+  background-color: aquamarine;
+}

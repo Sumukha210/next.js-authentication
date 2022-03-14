@@ -1,19 +1,16 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
+import React from "react";
 
-export default function Home() {
-  const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  }
+const Home = () => {
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+    <div>
+      <ul>
+        <li>
+          <Link href="/auth/register">Register</Link>
+        </li>
+      </ul>
+    </div>
   );
-}
+};
+
+export default Home;
