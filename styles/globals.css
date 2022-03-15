@@ -4,6 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: lightgrey;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 a {
@@ -41,4 +44,30 @@ form button {
   text-align: center;
   border: none;
   background-color: aquamarine;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  color: brown;
+  font-weight: bold;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar ul li {
+  list-style: none;
+  margin-right: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }

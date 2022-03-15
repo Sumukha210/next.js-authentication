@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import useStore from "../../components/store";
 
-const Register = () => {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const setAccessTokenFun = useStore(s => s.setAccessToken);
+  // const setIsAuthenticatedFun = useStore(s => s.setIsAuthenticated);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     try {
-      const res = await axios.post("/api/auth/register", {
-        name,
+      const res = await axios.post("/api/auth/login", {
         email,
         password,
       });
       const result = await res.data;
       if (result.status === "success") {
-        router.replace("/auth/login");
+        router.replace("/auth/dashboard");
+        if (result.accessToken) {
+          setAccessTokenFun(result.accessToken);
+          // setIsAuthenticatedFun(true);
+        } else {
+          // setIsAuthenticatedFun(false);
+          setAccessTokenFun(null);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -33,19 +41,7 @@ const Register = () => {
   return (
     <div className="formContainer">
       <form onSubmit={handleSubmit}>
-        <h1 className="mainTitle">Register page</h1>
-
-        <div className="inputGroup">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            value={name}
-            id="name"
-            required
-            name="name"
-            onChange={e => setName(e.target.value)}
-          />
-        </div>
+        <h1 className="mainTitle">Login Page</h1>
 
         <div className="inputGroup">
           <label htmlFor="email">Email</label>
@@ -75,4 +71,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

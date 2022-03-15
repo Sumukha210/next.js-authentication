@@ -13,11 +13,17 @@ export default async function registerHandler(
   req: NextApiRequest,
   res: NextApiResponse<resTypes>
 ) {
+  if (req.method != "POST") {
+    return res.json({ message: "Only post method is allowed", status: "fail" });
+  }
+
   const { name, email, password } = req.body;
-  console.log(name, email, password);
 
   if (!name || !email || !password) {
-    return res.json({ message: "all the fields required", status: "fail" });
+    return res.json({
+      message: "all the fields are required",
+      status: "fail",
+    });
   }
 
   try {
@@ -27,7 +33,9 @@ export default async function registerHandler(
     }); // creating a new user
 
     res.json({ message: "Account is successfully created", status: "success" });
-  } catch (error) {
-    console.log("ERROR", error);
+  } catch (error: any) {
+    if (error?.code === "P2002") {
+      res.json({ message: "Email is already exists", status: "fail" });
+    }
   }
 }
