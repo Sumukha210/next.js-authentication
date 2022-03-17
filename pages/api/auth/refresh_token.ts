@@ -2,12 +2,12 @@
 import { PrismaClient } from "@prisma/client";
 import { verify } from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  createAccessToken,
-  createRefreshToken,
-} from "../../../components/utils";
 import cookie from "cookie";
 import { v4 as uuid } from "uuid";
+import {
+  createRefreshToken,
+  createAccessToken,
+} from "../../../src/components/utils";
 
 type resTypes = {
   status: "success" | "fail";
@@ -75,6 +75,7 @@ export default async function handler(
       accessToken: createAccessToken(user),
     });
   } catch (error) {
+    console.log("Refresh token Error", error);
     return res.json({ status: "fail", accessToken: null });
   }
 

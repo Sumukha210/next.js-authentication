@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import useStore from "../../components/store";
+import useStore from "../../src/context/store";
 
 const Login = () => {
   const [email, setEmail] = useState("");

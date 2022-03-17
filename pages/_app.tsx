@@ -1,29 +1,28 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import Navbar from "../components/Navbar";
-import useStore from "../components/store";
+import "../src/styles/globals.css";
 import { useEffect } from "react";
 import axios from "axios";
+import useStore from "../src/context/store";
+import Navbar from "../src/components/Navbar";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   console.log("Component protectedRoute", Component?.protectedRoute);
   const setAccessToken = useStore(s => s.setAccessToken);
-  const setIsAuthenticated = useStore(s => s.setIsAuthenticated);
+  const setLoading = useStore(s => s.setLoading);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .post("/api/auth/refresh_token")
       .then(res => {
-        console.log("refresh token called");
         if (res.data.status === "success") {
           setAccessToken(res.data.accessToken);
-          setIsAuthenticated(true);
         } else {
           setAccessToken(null);
-          setIsAuthenticated(false);
         }
+        setLoading(false);
       })
       .catch(err => {
+        setLoading(false);
         console.log("Error", err);
       });
   }, []);

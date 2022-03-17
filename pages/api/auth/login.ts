@@ -3,9 +3,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import cookie from "cookie";
 import {
-  createAccessToken,
   createRefreshToken,
-} from "../../../components/utils";
+  createAccessToken,
+} from "../../../src/components/utils";
 
 type resTypes = {
   message: string;

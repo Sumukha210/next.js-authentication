@@ -1,18 +1,16 @@
 import Link from "next/link";
-import React from "react";
-import useStore from "./store";
+import React, { useEffect } from "react";
+import useStore from "../context/store";
 import axios from "axios";
 
 const Navbar = () => {
   const isAuthenticated = useStore(s => s.isAuthenticated);
-  // const setIsAuthenticated = useStore(s => s.setIsAuthenticated);
   const setAccessToken = useStore(s => s.setAccessToken);
 
   const handleLogout = async () => {
     const res = await axios.get("/api/auth/logout");
     console.log("Logout res", res.data.status);
     if (res.data.status === "success") {
-      // setIsAuthenticated(false);
       setAccessToken(null);
     }
   };
@@ -28,6 +26,10 @@ const Navbar = () => {
 
         <li>
           <Link href="/auth/dashboard">Dashboard</Link>
+        </li>
+
+        <li>
+          <Link href="/auth/protected">Protected</Link>
         </li>
 
         <li>
